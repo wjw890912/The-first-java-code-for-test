@@ -1,0 +1,22 @@
+package com.runoob.test;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ReverseServer {
+	public static void main(String[] args) {
+		ServerSocket ss;
+		try {
+			ss = new ServerSocket(8001);
+			boolean bRunning = true;
+			while (bRunning) {
+				Socket s = ss.accept();
+				new Thread(new Service(s)).start();
+			}
+			ss.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}

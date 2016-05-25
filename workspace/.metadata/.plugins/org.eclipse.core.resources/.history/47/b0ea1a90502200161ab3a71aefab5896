@@ -1,0 +1,24 @@
+package com.runoob.test;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ReverseServer {
+	
+	/*main程序入口*/
+	public static void main(String[] args) {
+		ServerSocket ss;//建立一个socket句柄
+		try {
+			ss = new ServerSocket(8002);//
+			boolean bRunning = true;
+			while (bRunning) {
+				Socket s = ss.accept();
+				new Thread(new Service(s)).start();
+			}
+			ss.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+}
